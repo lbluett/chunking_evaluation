@@ -66,7 +66,7 @@ class LLMSemanticChunker(BaseChunker):
     def __init__(self, organisation:str="openai", api_key:str=None, model_name:str=None):
         if organisation == "openai":
             if model_name is None:
-                model_name = "gpt-4o"
+                model_name = "gpt-4o-mini"
             self.client = OpenAIClient(model_name, api_key=api_key)
         elif organisation == "anthropic":
             if model_name is None:
@@ -74,7 +74,7 @@ class LLMSemanticChunker(BaseChunker):
             self.client = AnthropicClient(model_name, api_key=api_key)
         else:
             raise ValueError("Invalid organisation. Please choose either 'openai' or 'anthropic'.")
-
+        print(f"Using {organisation} model: {model_name}")
         self.splitter = RecursiveTokenChunker(
             chunk_size=50,
             chunk_overlap=0,
